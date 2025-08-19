@@ -14,6 +14,7 @@ interface IconItem {
 }
 
 export default function GraphicDesignContent({ onBackChange }: { onBackChange?: (showBack: boolean, onBack?: () => void) => void }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedIconColor, setSelectedIconColor] = useState<{hex: string, rgb: string} | null>(null);
   const [selectedPaletteIndex, setSelectedPaletteIndex] = useState<number>(0);
   const [copiedStatus, setCopiedStatus] = useState<Record<string, boolean>>({});

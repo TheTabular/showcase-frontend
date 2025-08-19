@@ -15,7 +15,7 @@ export default function Overlay({ isOpen, onClose, children, fullHeight = false,
       {/* Content container */}
       {fullHeight ? (
         <div className="relative min-h-screen flex items-center justify-center p-8 bg-black/40 backdrop-blur-sm" onClick={onClose}>
-          <div className="relative bg-white/95 backdrop-blur-md rounded-lg shadow-2xl max-w-4xl w-full my-8" onClick={(e) => e.stopPropagation()}>
+          <div className="relative bg-white/95 backdrop-blur-md rounded-lg shadow-2xl max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
             {/* Header with navigation buttons */}
             <div className="flex justify-between items-center p-4">
               {showBackButton && onBack ? (
@@ -48,7 +48,7 @@ export default function Overlay({ isOpen, onClose, children, fullHeight = false,
         </div>
       ) : (
         <div className="relative min-h-screen flex items-center justify-center p-8 bg-black/40 backdrop-blur-sm" onClick={onClose}>
-          <div className="relative bg-white/95 backdrop-blur-md rounded-lg shadow-2xl max-w-4xl w-full my-8" onClick={(e) => e.stopPropagation()}>
+          <div className="relative bg-white/95 backdrop-blur-md rounded-lg shadow-2xl max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
             {/* Header with navigation buttons */}
             <div className="flex justify-between items-center p-4">
               {showBackButton && onBack ? (

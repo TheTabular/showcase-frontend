@@ -1,13 +1,27 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 
 // API Configuration
 const API_BASE_URL = 'https://14qltjpal3.execute-api.us-east-1.amazonaws.com/dev';
 
+// API response interfaces
+interface APIClipData {
+  filename: string;
+  path: string;
+  presigned_url?: string; // Add presigned URL field
+}
+
+interface APIResponse {
+  success: boolean;
+  original_clip?: APIClipData;
+  cloned_clip?: APIClipData;
+  error?: string;
+}
+
 // API client function
-const callAPI = async (endpoint: string) => {
+const callAPI = async (endpoint: string): Promise<APIResponse> => {
   try {
     const response = await fetch(`${API_BASE_URL}${endpoint}`);
     if (!response.ok) {
@@ -20,9 +34,10 @@ const callAPI = async (endpoint: string) => {
   }
 };
 
-// Helper function to construct audio URLs using query parameters
+// Helper function to construct audio URLs - now expects presigned URLs from API
 const constructAudioURL = (path: string) => {
-  return `${API_BASE_URL}?action=audio-proxy&filename=${encodeURIComponent(path)}`;
+  // The API should return presigned URLs, so we don't need to construct them
+  return path;
 };
 
 interface VoiceClip {
@@ -42,7 +57,7 @@ interface TranscriptionData {
   speed_setting: number;
   whisper_result: {
     text: string;
-    segments: any[];
+    segments: Record<string, unknown>[];
     language: string;
   };
 }
@@ -53,12 +68,7 @@ interface VoiceCloningData {
   transcription: TranscriptionData | null;
 }
 
-interface ApiResponse {
-  success: boolean;
-  count: number;
-  voice_clips: VoiceClip[];
-  error?: string;
-}
+
 
 interface VoiceProfile {
   id: string;
@@ -83,7 +93,7 @@ const voiceProfiles: VoiceProfile[] = [
 ];
 
 export default function VoiceCloningContent({ onBackChange }: { onBackChange?: (showBack: boolean, onBack?: () => void) => void }) {
-  const [voiceClips, setVoiceClips] = useState<VoiceClip[]>([]);
+  const [, setVoiceClips] = useState<VoiceClip[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [playingClip, setPlayingClip] = useState<string | null>(null);
@@ -95,15 +105,15 @@ export default function VoiceCloningContent({ onBackChange }: { onBackChange?: (
       setLoading(true);
       setError(null);
       
-      // Use query parameters for character request
-      const data = await callAPI(`?character=${profileId}`);
+      // Use the showcase path with query parameters
+      const data = await callAPI(`/showcase?character=${profileId}`);
       
       if (data.success && data.original_clip && data.cloned_clip) {
         // Convert the API response to the format the component expects
         const voiceCloningData = {
           original_clip: {
             filename: data.original_clip.filename,
-            url: constructAudioURL(data.original_clip.path),
+            url: data.original_clip.presigned_url || constructAudioURL(data.original_clip.path),
             size: 0,
             size_formatted: '0 KB',
             last_modified: new Date().toISOString(),
@@ -111,7 +121,7 @@ export default function VoiceCloningContent({ onBackChange }: { onBackChange?: (
           },
           cloned_clip: {
             filename: data.cloned_clip.filename,
-            url: constructAudioURL(data.cloned_clip.path),
+            url: data.cloned_clip.presigned_url || constructAudioURL(data.cloned_clip.path),
             size: 0,
             size_formatted: '0 KB',
             last_modified: new Date().toISOString(),
@@ -253,7 +263,6 @@ export default function VoiceCloningContent({ onBackChange }: { onBackChange?: (
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Sample Clip</h3>
                 <VoiceClipCard
                   clip={cloningData.original_clip}
-                  index={0}
                   isPlaying={playingClip === cloningData.original_clip.filename}
                   onPlayPause={() => handlePlayPause(cloningData.original_clip!.filename)}
                 />
@@ -266,7 +275,6 @@ export default function VoiceCloningContent({ onBackChange }: { onBackChange?: (
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Cloned Voice</h3>
                 <VoiceClipCard
                   clip={cloningData.cloned_clip}
-                  index={1}
                   isPlaying={playingClip === cloningData.cloned_clip.filename}
                   onPlayPause={() => handlePlayPause(cloningData.cloned_clip!.filename)}
                 />
@@ -285,12 +293,11 @@ export default function VoiceCloningContent({ onBackChange }: { onBackChange?: (
 
 interface VoiceClipCardProps {
   clip: VoiceClip;
-  index: number;
   isPlaying: boolean;
   onPlayPause: () => void;
 }
 
-function VoiceClipCard({ clip, index, isPlaying, onPlayPause }: VoiceClipCardProps) {
+function VoiceClipCard({ clip, isPlaying, onPlayPause }: VoiceClipCardProps) {
   const [duration, setDuration] = useState<string>('--:--');
   const [currentTime, setCurrentTime] = useState<string>('0:00');
   const [audioReady, setAudioReady] = useState(false);
