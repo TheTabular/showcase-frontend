@@ -20,9 +20,9 @@ const callAPI = async (endpoint: string) => {
   }
 };
 
-// Helper function to construct audio URLs
+// Helper function to construct audio URLs using query parameters
 const constructAudioURL = (path: string) => {
-  return `${API_BASE_URL}/audio-proxy/${path}`;
+  return `${API_BASE_URL}?action=audio-proxy&filename=${encodeURIComponent(path)}`;
 };
 
 interface VoiceClip {
@@ -95,7 +95,8 @@ export default function VoiceCloningContent({ onBackChange }: { onBackChange?: (
       setLoading(true);
       setError(null);
       
-      const data = await callAPI(`/api/character?character=${profileId}`);
+      // Use query parameters for character request
+      const data = await callAPI(`?character=${profileId}`);
       
       if (data.success && data.original_clip && data.cloned_clip) {
         // Convert the API response to the format the component expects

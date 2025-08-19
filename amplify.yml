@@ -3,12 +3,10 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm ci
-        - npm install --save next-sitemap
+        - npm install
     build:
       commands:
         - npm run build
-        - npx next-sitemap
   artifacts:
     baseDirectory: .next
     files:
@@ -17,20 +15,3 @@ frontend:
     paths:
       - node_modules/**/*
       - .next/cache/**/*
-  customHeaders:
-    - pattern: '**/*'
-      headers:
-        - key: 'X-Content-Type-Options'
-          value: 'nosniff'
-        - key: 'X-Frame-Options'
-          value: 'DENY'
-        - key: 'X-XSS-Protection'
-          value: '1; mode=block'
-        - key: 'Referrer-Policy'
-          value: 'strict-origin-when-cross-origin'
-        - key: 'Cache-Control'
-          value: 'no-cache, no-store, must-revalidate'
-    - pattern: '**/*.html'
-      headers:
-        - key: 'Cache-Control'
-          value: 'no-cache, no-store, must-revalidate'
