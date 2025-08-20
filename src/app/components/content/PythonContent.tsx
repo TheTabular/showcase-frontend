@@ -35,7 +35,7 @@ export default function PythonContent({ onBackChange }: { onBackChange?: (showBa
         <div>
           <div className="flex items-center mb-4">
             <div className="flex-grow h-px bg-black"></div>
-            <h3 className="text-xl font-semibold text-gray-900 px-4">Data Manipulation</h3>
+            <h3 className="text-xl font-semibold text-gray-900 px-4">Data Cleaning</h3>
             <div className="flex-grow h-px bg-black"></div>
           </div>
           <div className="flex justify-center px-4">
