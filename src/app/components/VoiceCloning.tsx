@@ -13,30 +13,25 @@ export default function VoiceCloning() {
       <div className="relative z-20 text-center">
         <div className="text-8xl mb-6 text-center">🎤</div>
         
-        {/* Text with shifted copy effect */}
-        <div className="relative">
-          {/* Shifted/faded background copy */}
+        {/* Text with shifted copy effect + black background */}
+        <div className="relative inline-block">
+          {/* Main text with black background bar */}
           <h2 
-            className="text-white text-4xl font-bold text-center absolute" 
+            className="text-white text-4xl font-bold text-center bg-black px-4 py-2 rounded-lg" 
             style={{
-              fontFamily: 'Arial, sans-serif',
-              fontWeight: '900',
-              letterSpacing: '0.05em',
-              transform: 'translate(6px, 6px)',
-              opacity: 0.4
+              zIndex: 3
             }}
           >
             Voice Cloning
           </h2>
           
-          {/* Main text on top */}
+          {/* Shifted/faded background copy - positioned relative to main text */}
           <h2 
-            className="text-white text-4xl font-bold text-center relative" 
+            className="text-white text-4xl font-bold text-center absolute top-1.5 left-4" 
             style={{
-              fontFamily: 'Arial, sans-serif',
-              fontWeight: '900',
-              letterSpacing: '0.05em',
-              textShadow: '-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, -2px 0 0 #000, 2px 0 0 #000, 0 -2px 0 #000, 0 2px 0 #000'
+              transform: 'translate(6px, 6px)',
+              opacity: 0.4,
+              zIndex: 1
             }}
           >
             Voice Cloning

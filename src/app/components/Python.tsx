@@ -19,10 +19,7 @@ const Python: React.FC = () => {
           />
         </div>
         <h2 
-          className="text-4xl font-bold" 
-          style={{ 
-            textShadow: '-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, -2px 0 0 #000, 2px 0 0 #000, 0 -2px 0 #000, 0 2px 0 #000'
-          }}
+          className="text-4xl font-bold bg-black px-4 py-2 rounded-lg"
         >
           Python
         </h2>

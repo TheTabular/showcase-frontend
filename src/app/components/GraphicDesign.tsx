@@ -13,12 +13,11 @@ export default function GraphicDesign() {
       <div className="relative z-20 text-center">
         <div className="text-8xl mb-6 text-center">🎨</div>
         <h2 
-          className="text-white text-4xl font-bold text-center" 
+          className="text-white text-4xl font-black text-center bg-black px-4 py-2 rounded-lg" 
           style={{ 
-            fontFamily: 'Comic Sans MS, Brush Script MT, cursive, Creative, Arial, sans-serif', 
+            fontFamily: 'Creative, Comic Sans MS, Arial Black, Helvetica, sans-serif', 
             fontWeight: '900', 
-            letterSpacing: '0.05em',
-            textShadow: '-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, -2px 0 0 #000, 2px 0 0 #000, 0 -2px 0 #000, 0 2px 0 #000'
+            letterSpacing: '0.05em'
           }}
         >
           Graphic Design
