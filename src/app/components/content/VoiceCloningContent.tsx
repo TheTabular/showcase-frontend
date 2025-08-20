@@ -171,15 +171,15 @@ export default function VoiceCloningContent({ onBackChange }: { onBackChange?: (
 
   if (!selectedProfile) {
     return (
-      <div className="p-0 pt-0 px-4 pb-4">
-        <div className="space-y-8">
-          <div className="text-center">
-            <div className="text-6xl mb-4">🎤</div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-6">Voice Cloning</h1>
-          </div>
+      <div className="space-y-4 max-w-4xl mx-auto">
+        <div className="flex items-center mb-4">
+          <div className="flex-grow h-px bg-black"></div>
+          <h3 className="text-xl font-semibold text-gray-900 px-4">Select A Profile</h3>
+          <div className="flex-grow h-px bg-black"></div>
+        </div>
 
-          <div className="flex justify-center">
-            <div className="flex flex-wrap justify-center gap-4 max-w-lg">
+        <div className="flex justify-center">
+          <div className="flex flex-wrap gap-4 max-w-lg justify-center">
               {voiceProfiles.map((profile) => (
                 <div
                   key={profile.id}
@@ -203,50 +203,49 @@ export default function VoiceCloningContent({ onBackChange }: { onBackChange?: (
             </div>
           </div>
         </div>
-      </div>
     );
   }
 
   if (error) {
     return (
       <div className="space-y-8">
-        <div className="text-center">
-          <div className="text-6xl mb-4">🎤</div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Voice Cloning</h1>
-          <p className="text-red-600 mb-4">{error}</p>
-          <button
-            onClick={() => fetchVoiceClips(selectedProfile.id)}
-            className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg transition-colors"
-          >
-            Try Again
-          </button>
-        </div>
+        <p className="text-red-600 mb-4">{error}</p>
+        <button
+          onClick={() => fetchVoiceClips(selectedProfile.id)}
+          className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg transition-colors"
+        >
+          Try Again
+        </button>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
-      <div className="text-center">
-        <div className="text-6xl mb-4">🎤</div>
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">Voice Cloning</h1>
-      </div>
-
+    <div className="space-y-8 max-w-4xl mx-auto">
       <div className="max-w-4xl mx-auto">
         {/* Voice Profile Section */}
-        <div className="bg-white border border-gray-200 rounded-lg p-3 mb-8">
-          <div className="flex items-center space-x-4">
-            <div className="flex-shrink-0">
-              <Image
-                src={selectedProfile.image}
-                alt={selectedProfile.name}
-                width={60}
-                height={60}
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-gray-900">{selectedProfile.name}</h2>
+        <div>
+          <div className="flex items-center mb-3">
+            <div className="flex-grow h-px bg-black"></div>
+            <h3 className="text-xl font-semibold text-gray-900 px-4">Selected Profile</h3>
+            <div className="flex-grow h-px bg-black"></div>
+          </div>
+          <div className="flex justify-center">
+            <div className="bg-white border border-gray-200 rounded-lg p-3 mb-8">
+              <div className="flex items-center space-x-4">
+                <div className="flex-shrink-0">
+                  <Image
+                    src={selectedProfile.image}
+                    alt={selectedProfile.name}
+                    width={60}
+                    height={60}
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-gray-900">{selectedProfile.name}</h2>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -256,28 +255,40 @@ export default function VoiceCloningContent({ onBackChange }: { onBackChange?: (
             <div className="animate-spin rounded-full h-8 w-8 border-4 border-gray-300 border-t-gray-700"></div>
           </div>
         ) : cloningData ? (
-          <div className="space-y-6">
+          <div className="space-y-8">
             {/* Sample Clip Section */}
             {cloningData.original_clip && (
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Sample Clip</h3>
-                <VoiceClipCard
-                  clip={cloningData.original_clip}
-                  isPlaying={playingClip === cloningData.original_clip.filename}
-                  onPlayPause={() => handlePlayPause(cloningData.original_clip!.filename)}
-                />
+                <div className="flex items-center mb-3">
+                  <div className="flex-grow h-px bg-black"></div>
+                  <h3 className="text-xl font-semibold text-gray-900 px-4">Sample Clip</h3>
+                  <div className="flex-grow h-px bg-black"></div>
+                </div>
+                <div className="flex justify-center">
+                  <VoiceClipCard
+                    clip={cloningData.original_clip}
+                    isPlaying={playingClip === cloningData.original_clip.filename}
+                    onPlayPause={() => handlePlayPause(cloningData.original_clip!.filename)}
+                  />
+                </div>
               </div>
             )}
 
             {/* Cloned Voice Section */}
             {cloningData.cloned_clip && (
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Cloned Voice</h3>
-                <VoiceClipCard
-                  clip={cloningData.cloned_clip}
-                  isPlaying={playingClip === cloningData.cloned_clip.filename}
-                  onPlayPause={() => handlePlayPause(cloningData.cloned_clip!.filename)}
-                />
+                <div className="flex items-center mb-3">
+                  <div className="flex-grow h-px bg-black"></div>
+                  <h3 className="text-xl font-semibold text-gray-900 px-4">Cloned Voice</h3>
+                  <div className="flex-grow h-px bg-black"></div>
+                </div>
+                <div className="flex justify-center">
+                  <VoiceClipCard
+                    clip={cloningData.cloned_clip}
+                    isPlaying={playingClip === cloningData.cloned_clip.filename}
+                    onPlayPause={() => handlePlayPause(cloningData.cloned_clip!.filename)}
+                  />
+                </div>
               </div>
             )}
           </div>
@@ -342,7 +353,7 @@ function VoiceClipCard({ clip, isPlaying, onPlayPause }: VoiceClipCardProps) {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-3 transition-shadow">
+    <div className="bg-white border border-gray-200 rounded-lg p-4 transition-shadow w-full max-w-md">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <button

@@ -1,5 +1,41 @@
 @import "tailwindcss";
 
+/* Import Flux Regular font */
+@font-face {
+  font-family: 'Flux Regular';
+  src: url('/fonts/FluxRegular.woff2') format('woff2'),
+       url('/fonts/FluxRegular.woff') format('woff'),
+       url('/fonts/FluxRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Import Creative font */
+@font-face {
+  font-family: 'Creative';
+  src: url('/fonts/Creative.woff2') format('woff2'),
+       url('/fonts/Creative.woff') format('woff'),
+       url('/fonts/Creative.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Rainbow gradient animation for Graphic Design */
+@keyframes rainbow {
+  0% { background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00); }
+  25% { background: linear-gradient(45deg, #00ff00, #0000ff, #4b0082, #9400d3); }
+  50% { background: linear-gradient(45deg, #0000ff, #00ffff, #ffffff, #000000); }
+  75% { background: linear-gradient(45deg, #ff69b4, #ff1493, #dc143c, #b22222); }
+  100% { background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00); }
+}
+
+.rainbow-bg {
+  animation: rainbow 8s ease-in-out infinite;
+  background-size: 400% 400%;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

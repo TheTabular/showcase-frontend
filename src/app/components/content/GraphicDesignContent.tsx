@@ -20,15 +20,21 @@ export default function GraphicDesignContent({ onBackChange }: { onBackChange?: 
   const [copiedStatus, setCopiedStatus] = useState<Record<string, boolean>>({});
 
   // Generate the icon items array with associated colors
-  const iconItems: IconItem[] = Array.from({ length: 9 }, (_, index) => ({
-    id: index + 1,
-    filename: `${index + 1}.png`,
-    path: `/graphic-design-examples/icons/${index + 1}.png`,
-    color: {
-      hex: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE'][index],
-      rgb: ['rgb(255, 107, 107)', 'rgb(78, 205, 196)', 'rgb(69, 183, 209)', 'rgb(150, 206, 180)', 'rgb(255, 234, 167)', 'rgb(221, 160, 221)', 'rgb(152, 216, 200)', 'rgb(247, 220, 111)', 'rgb(187, 143, 206)'][index]
-    }
-  }));
+  const iconItems: IconItem[] = Array.from({ length: 12 }, (_, index) => {
+    // Map indices to skip 4, 5, 6 and include 10-15
+    const iconNumbers = [1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    const iconNumber = iconNumbers[index];
+    
+    return {
+      id: iconNumber,
+      filename: `${iconNumber}.png`,
+      path: `/graphic-design-examples/icons/${iconNumber}.png`,
+      color: {
+        hex: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#87CEEB', '#FFB6C1', '#F0E68C'][index],
+        rgb: ['rgb(255, 107, 107)', 'rgb(78, 205, 196)', 'rgb(69, 183, 209)', 'rgb(150, 206, 180)', 'rgb(255, 234, 167)', 'rgb(221, 160, 221)', 'rgb(152, 216, 200)', 'rgb(247, 220, 111)', 'rgb(187, 143, 206)', 'rgb(135, 206, 235)', 'rgb(255, 182, 193)', 'rgb(240, 230, 140)'][index]
+      }
+    };
+  });
 
   const copyToClipboard = (text: string, key: string) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -52,15 +58,15 @@ export default function GraphicDesignContent({ onBackChange }: { onBackChange?: 
   };
 
   return (
-    <div className="p-0 pt-0 px-4 pb-4">
-      <div className="space-y-4">
-        <div className="text-center">
-          <div className="text-6xl mb-4">🎨</div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">Graphic Design</h1>
-        </div>
+    <div className="">
+      <div className="space-y-8 max-w-4xl mx-auto">
 
         <div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-3">Background Removal</h3>
+          <div className="flex items-center mb-4">
+            <div className="flex-grow h-px bg-black"></div>
+            <h3 className="text-xl font-semibold text-gray-900 px-4">Background Removal</h3>
+            <div className="flex-grow h-px bg-black"></div>
+          </div>
           <div className="flex justify-center">
             <div className="flex items-center gap-6 max-w-4xl">
               {/* Original Image */}
@@ -69,8 +75,8 @@ export default function GraphicDesignContent({ onBackChange }: { onBackChange?: 
                   <Image
                     src="/graphic-design-examples/original.jpg"
                     alt="Original"
-                    width={200}
-                    height={200}
+                    width={250}
+                    height={250}
                     className="rounded-lg shadow-md"
                   />
                 </div>
@@ -89,8 +95,8 @@ export default function GraphicDesignContent({ onBackChange }: { onBackChange?: 
                   <Image
                     src="/graphic-design-examples/post.png"
                     alt="Background Removed"
-                    width={200}
-                    height={200}
+                    width={150}
+                    height={150}
                     className="rounded-lg"
                   />
                 </div>
@@ -100,12 +106,16 @@ export default function GraphicDesignContent({ onBackChange }: { onBackChange?: 
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-3">Color Codes</h3>
+          <div className="flex items-center mb-4">
+            <div className="flex-grow h-px bg-black"></div>
+            <h3 className="text-xl font-semibold text-gray-900 px-4">Color Codes</h3>
+            <div className="flex-grow h-px bg-black"></div>
+          </div>
           <div className="flex justify-center">
             <div className="max-w-2xl w-full">
               {/* Selected Color Display */}
               <div className="mb-6">
-                <div className="w-full h-32 rounded-md border border-solid border-gray-300 shadow-inner mb-3" style={{backgroundColor: selectedIconColor ? selectedIconColor.hex : 'rgb(54, 90, 66)'}}>
+                <div className="w-full h-32 rounded-md border border-solid border-gray-300 shadow-inner mb-4" style={{backgroundColor: selectedIconColor ? selectedIconColor.hex : 'rgb(54, 90, 66)'}}>
                   <div className="flex justify-between items-end h-full p-3">
                     <span 
                       className="font-mono text-sm px-2 py-1 rounded bg-white/70 cursor-pointer hover:bg-white transition-colors" 
@@ -126,7 +136,7 @@ export default function GraphicDesignContent({ onBackChange }: { onBackChange?: 
               </div>
               
               {/* Multi-Color Palette Strip */}
-              <div className="mb-4">
+              <div>
                 <div className="h-12 w-full flex rounded-md overflow-hidden border border-solid border-gray-300">
                   <div className="flex-1 h-full cursor-pointer relative" title="Color 1" style={{backgroundColor: 'rgb(54, 90, 66)'}} onClick={() => handlePaletteClick({hex: '#365a42', rgb: 'rgb(54, 90, 66)'}, 0)}>
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -285,44 +295,28 @@ export default function GraphicDesignContent({ onBackChange }: { onBackChange?: 
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-3">Icons</h3>
-          <div className="flex justify-center">
-            <div className="hidden lg:flex gap-6">
-              {iconItems.map((icon) => (
-                <div key={icon.id} className="text-center flex-shrink-0">
-                  <div className="flex justify-center mb-2">
-                    <Image
-                      src={icon.path}
-                      alt={`Icon ${icon.id}`}
-                      width={60}
-                      height={60}
-                      className="object-contain cursor-pointer hover:scale-110 transition-transform"
-                      priority={icon.id <= 6}
-                      onClick={() => handleIconClick(icon.color)}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="flex items-center mb-4">
+            <div className="flex-grow h-px bg-black"></div>
+            <h3 className="text-xl font-semibold text-gray-900 px-4">Icons</h3>
+            <div className="flex-grow h-px bg-black"></div>
           </div>
           
-          {/* Grid layout for smaller screens */}
-          <div className="grid grid-cols-3 gap-1 max-w-md mx-auto lg:hidden">
+          <div className="flex justify-center">
+            <div className="flex flex-wrap gap-4 items-start max-w-none justify-center">
             {iconItems.map((icon) => (
-              <div key={`grid-${icon.id}`} className="text-center">
-                <div className="flex justify-center mb-2">
-                  <Image
-                    src={icon.path}
-                    alt={`Icon ${icon.id}`}
-                    width={60}
-                    height={60}
-                    className="object-contain cursor-pointer hover:scale-110 transition-transform"
-                    priority={icon.id <= 6}
-                    onClick={() => handleIconClick(icon.color)}
-                  />
-                </div>
+              <div key={icon.id} className="flex-shrink-0">
+                <Image
+                  src={icon.path}
+                  alt={`Icon ${icon.id}`}
+                  width={60}
+                  height={60}
+                  className="object-contain cursor-pointer hover:scale-110 transition-transform"
+                  priority={icon.id <= 6}
+                  onClick={() => handleIconClick(icon.color)}
+                />
               </div>
             ))}
+            </div>
           </div>
         </div>
       </div>

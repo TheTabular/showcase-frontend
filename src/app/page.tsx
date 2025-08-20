@@ -3,11 +3,15 @@
 import { useState } from 'react';
 import VoiceCloning from './components/VoiceCloning';
 import GraphicDesign from './components/GraphicDesign';
+import Python from './components/Python';
+import AWS from './components/AWS';
 import Overlay from './components/Overlay';
 import VoiceCloningContent from './components/content/VoiceCloningContent';
 import GraphicDesignContent from './components/content/GraphicDesignContent';
+import PythonContent from './components/content/PythonContent';
+import AWSContent from './components/content/AWSContent';
 
-type ActiveService = 'voice-cloning' | 'graphic-design' | null;
+type ActiveService = 'voice-cloning' | 'graphic-design' | 'python' | 'aws' | null;
 
 export default function Home() {
   const [activeService, setActiveService] = useState<ActiveService>(null);
@@ -35,6 +39,10 @@ export default function Home() {
         return <VoiceCloningContent onBackChange={handleBackChange} />;
       case 'graphic-design':
         return <GraphicDesignContent onBackChange={handleBackChange} />;
+      case 'python':
+        return <PythonContent onBackChange={handleBackChange} />;
+      case 'aws':
+        return <AWSContent onBackChange={handleBackChange} />;
       default:
         return null;
     }
@@ -50,14 +58,22 @@ export default function Home() {
         <div onClick={() => handleServiceClick('graphic-design')}>
           <GraphicDesign />
         </div>
+        <div onClick={() => handleServiceClick('python')}>
+          <Python />
+        </div>
+        <div onClick={() => handleServiceClick('aws')}>
+          <AWS />
+        </div>
       </div>
       
       <Overlay 
         isOpen={activeService !== null} 
         onClose={handleCloseOverlay}
-        fullHeight={activeService === 'voice-cloning' || activeService === 'graphic-design'}
+        fullHeight={activeService === 'voice-cloning' || activeService === 'graphic-design' || activeService === 'python' || activeService === 'aws'}
         showBackButton={showBackButton}
         onBack={onBackCallback}
+        emoji={activeService === 'voice-cloning' ? '🎤' : activeService === 'graphic-design' ? '🎨' : activeService === 'python' ? '🐍' : activeService === 'aws' ? '☁️' : undefined}
+        title={activeService === 'voice-cloning' ? 'Voice Cloning' : activeService === 'graphic-design' ? 'Graphic Design' : activeService === 'python' ? 'Python' : activeService === 'aws' ? 'AWS' : undefined}
       >
         {renderOverlayContent()}
       </Overlay>
