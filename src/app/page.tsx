@@ -73,7 +73,7 @@ export default function Home() {
         showBackButton={showBackButton}
         onBack={onBackCallback}
         emoji={activeService === 'voice-cloning' ? '🎤' : activeService === 'graphic-design' ? '🎨' : activeService === 'python' ? '🐍' : activeService === 'aws' ? '☁️' : undefined}
-        title={activeService === 'voice-cloning' ? 'Voice Cloning' : activeService === 'graphic-design' ? 'Graphic Design' : activeService === 'python' ? 'Python' : activeService === 'aws' ? 'AWS' : undefined}
+        title={activeService === 'voice-cloning' ? 'Voice Cloning' : activeService === 'graphic-design' ? 'Graphic Design' : activeService === 'python' ? 'Python' : activeService === 'aws' ? 'Amazon Web Services' : undefined}
       >
         {renderOverlayContent()}
       </Overlay>
