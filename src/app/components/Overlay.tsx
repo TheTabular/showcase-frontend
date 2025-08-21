@@ -14,9 +14,22 @@ export default function Overlay({ isOpen, onClose, children, fullHeight = false,
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
+      {/* Extended background overlay to prevent seeing behind content during elastic scroll */}
+      <div 
+        className="fixed bg-black/40 backdrop-blur-sm" 
+        style={{
+          top: '-100vh',
+          left: '-100vw', 
+          right: '-100vw',
+          bottom: '-100vh',
+          width: '300vw',
+          height: '300vh'
+        }}
+        onClick={onClose}
+      ></div>
       {/* Content container */}
       {fullHeight ? (
-        <div className="relative min-h-screen flex items-center justify-center p-8 bg-black/40 backdrop-blur-sm" onClick={onClose}>
+        <div className="relative min-h-screen flex items-center justify-center p-8" onClick={onClose}>
           <div className="relative bg-white/95 backdrop-blur-md rounded-lg shadow-2xl max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
             {/* Header with navigation buttons */}
             <div className="flex items-center p-4 mb-4">
@@ -58,7 +71,7 @@ export default function Overlay({ isOpen, onClose, children, fullHeight = false,
           </div>
         </div>
       ) : (
-        <div className="relative min-h-screen flex items-center justify-center p-8 bg-black/40 backdrop-blur-sm" onClick={onClose}>
+        <div className="relative min-h-screen flex items-center justify-center p-8" onClick={onClose}>
           <div className="relative bg-white/95 backdrop-blur-md rounded-lg shadow-2xl max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
             {/* Header with navigation buttons */}
             <div className="flex items-center p-4 mb-4">
