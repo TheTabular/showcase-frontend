@@ -25,7 +25,7 @@ export default function VoiceCloning() {
             Voice Cloning
           </h2>
           
-          {/* Shifted/faded background copy - positioned relative to main text */}
+          {/* Shifted/faded background copy and position relative to main text */}
           <h2 
             className="text-white text-4xl font-bold text-center absolute top-1.5 left-4" 
             style={{
